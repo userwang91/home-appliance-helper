@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>宅小安 · 居家家电简易排查助手</title>
+  <meta name="description" content="空调、洗衣机、热水器、冰箱常见小故障自助排查。用简单的步骤判断问题，明确什么时候可以自己处理、什么时候必须找专业维修。">
+  <meta name="theme-color" content="#f5f2ea">
+  <meta name="color-scheme" content="light">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="宅小安 · 居家家电简易排查助手">
+  <meta property="og:description" content="家电有点小毛病，先别急着叫师傅。19 个高频故障自查方案，不拆机、不通电检测，并明确标注报修边界。">
+  <meta property="og:image" content="preview.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23155345'/%3E%3Cpath d='M15 30 32 17l17 13v16a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4Z' fill='none' stroke='%23f8f4e9' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='m24 34 6 6 11-13' fill='none' stroke='%23e9a071' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#finder">跳到故障自查</a>
+
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-ac" viewBox="0 0 48 48">
+      <rect x="5" y="11" width="38" height="21" rx="6"></rect>
+      <path d="M10 22h28M10 27h22"></path>
+      <path d="M14 38c-1.3 3.4.8 4.6.8 6.6M24 38c-1.3 3.4.8 4.6.8 6.6M34 38c-1.3 3.4.8 4.6.8 6.6"></path>
+    </symbol>
+    <symbol id="i-washer" viewBox="0 0 48 48">
+      <rect x="9" y="5" width="30" height="38" rx="7"></rect>
+      <circle cx="24" cy="27" r="8.5"></circle>
+      <path d="M17 13h.01M23 13h.01M29 13h.01M20 27c1.6-2.5 3.5-2.5 5 0s3.4 2.5 5 0"></path>
+    </symbol>
+    <symbol id="i-heater" viewBox="0 0 48 48">
+      <rect x="13" y="5" width="22" height="31" rx="8"></rect>
+      <path d="M13 15h22M19 22h10M19 28h10M24 36v5M19 41h10"></path>
+      <path d="M36 12c2.7 2.8 2.7 5.7 0 8.5"></path>
+    </symbol>
+    <symbol id="i-fridge" viewBox="0 0 48 48">
+      <rect x="11" y="5" width="26" height="38" rx="6"></rect>
+      <path d="M11 21h26M30 12v4M30 27v5"></path>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="6.5"></circle>
+      <path d="m16 16 4.2 4.2"></path>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6"></path>
+    </symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24">
+      <path d="M7 17 17 7M8 7h9v9"></path>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="m5 12.5 4.5 4.5L19 7"></path>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8.5"></circle>
+      <path d="M12 7.5V12l3 1.8"></path>
+    </symbol>
+    <symbol id="i-list" viewBox="0 0 24 24">
+      <path d="M9 7h10M9 12h10M9 17h10M5 7h.01M5 12h.01M5 17h.01"></path>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path d="M12 3 5.5 6v5.2c0 4.3 2.8 7.8 6.5 9.8 3.7-2 6.5-5.5 6.5-9.8V6L12 3Z"></path>
+      <path d="m9 12 2 2 4-4"></path>
+    </symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24">
+      <path d="M12 2.5c.7 5.6 3.9 8.8 9.5 9.5-5.6.7-8.8 3.9-9.5 9.5-.7-5.6-3.9-8.8-9.5-9.5 5.6-.7 8.8-3.9 9.5-9.5Z"></path>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="m6 6 12 12M18 6 6 18"></path>
+    </symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24">
+      <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+      <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+    </symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24">
+      <path d="M12 3 2.8 20h18.4L12 3Z"></path>
+      <path d="M12 9v5M12 17.5h.01"></path>
+    </symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24">
+      <path d="M14.5 6.5a5 5 0 0 0-6.4 6.4L3.5 17.5a2.1 2.1 0 0 0 3 3l4.6-4.6a5 5 0 0 0 6.4-6.4l-3 3-2.5-2.5 3-3Z"></path>
+    </symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24">
+      <path d="m7 10 5 5 5-5"></path>
+    </symbol>
+  </svg>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="宅小安首页">
+        <span class="brand-mark">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M8 19.5 20 10l12 9.5V31a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"></path>
+            <path d="m15 22.5 3.8 3.8L26 17.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>宅小安</strong>
+          <small>居家家电排查助手</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#finder">故障自查</a>
+        <a href="#safety">安全红线</a>
+        <a href="#method">怎么判断</a>
+        <a href="#about">关于我们</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-cta" href="#finder">
+          开始排查
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="移动端导航" hidden>
+      <div class="container mobile-menu-inner">
+        <a href="#finder">故障自查<span>19 个自查方案</span></a>
+        <a href="#safety">安全红线<span>先停手，再处理</span></a>
+        <a href="#method">怎么判断<span>自查三步与边界</span></a>
+        <a href="#about">关于我们<span>我们做什么，不做什么</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-glow hero-glow-a" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-b" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow"><span class="eyebrow-dot"></span>居家家电自助排查 · 不拆机指南</p>
+          <h1>家电有点小毛病，<br><span class="hero-mark">先别急着叫师傅。</span></h1>
+          <p class="hero-lede">覆盖空调、洗衣机、热水器、冰箱的 19 个高频小故障。用看得懂的话，帮你分清：是设置问题、清洁问题，还是真的该报修。</p>
+
+          <form class="hero-search" id="heroSearch" role="search">
+            <svg class="hero-search-icon icon" aria-hidden="true"><use href="#i-search"></use></svg>
+            <label class="sr-only" for="heroQuery">搜索家电故障</label>
+            <input id="heroQuery" name="q" type="search" placeholder="描述你遇到的问题，如：空调不制冷" autocomplete="off">
+            <button type="submit">
+              查一查
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </button>
+          </form>
+
+          <div class="hot-searches" aria-label="热门搜索">
+            <span>大家在查</span>
+            <button type="button" data-query="空调不制冷">空调不制冷</button>
+            <button type="button" data-query="洗衣机不脱水">洗衣机不脱水</button>
+            <button type="button" data-query="冰箱结霜">冰箱结霜</button>
+            <button type="button" data-query="热水器不出热水">热水器不出热水</button>
+          </div>
+
+          <div class="hero-points" aria-label="使用原则">
+            <span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>只做看、听、摸</span>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>不拆外壳</span>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>明确报修边界</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="空调不制冷自查示例">
+          <div class="visual-dot-grid" aria-hidden="true"></div>
+          <div class="visual-ring" aria-hidden="true"></div>
+
+          <article class="diagnosis-card">
+            <div class="dc-top">
+              <span class="dc-kicker"><span class="live-dot"></span>快速自查示例</span>
+              <span class="dc-time"><svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>约 3 分钟</span>
+            </div>
+
+            <div class="dc-heading">
+              <span class="dc-icon cat-ac"><svg class="icon" aria-hidden="true"><use href="#i-ac"></use></svg></span>
+              <div>
+                <h2>空调不制冷，只吹风</h2>
+                <p>先确认这 3 件事，再决定要不要报修</p>
+              </div>
+            </div>
+
+            <div class="mini-checks">
+              <div class="mini-check is-done">
+                <span class="mini-check-box"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+                <div><b>遥控器是不是「制冷」模式？</b><small>送风模式只吹风，不会降温</small></div>
+              </div>
+              <div class="mini-check">
+                <span class="mini-check-box"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+                <div><b>过滤网是不是积灰了？</b><small>断电后取下滤网，清水冲洗阴干</small></div>
+              </div>
+              <div class="mini-check">
+                <span class="mini-check-box"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+                <div><b>室外机风扇在转吗？</b><small>开机 3 分钟后，从安全位置观察</small></div>
+              </div>
+            </div>
+
+            <div class="mini-result">
+              <span class="mini-result-tag">自查结论</span>
+              <p><strong>先洗过滤网，再观察 10 分钟。</strong><span>如果外机风扇不转，再联系售后检查。</span></p>
+            </div>
+
+            <button class="dc-link" type="button" data-open-issue="ac-01">
+              查看完整自查步骤
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </button>
+          </article>
+
+          <div class="floating-note float-top">
+            <span class="float-icon"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg></span>
+            <div><b>先安全，再排查</b><small>每一条都标注风险边界</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="coverage-bar">
+        <div class="coverage-title">
+          <span class="coverage-dot"></span>
+          <span>已收录 <b>4 类</b>常用家电</span>
+        </div>
+        <div class="coverage-cats">
+          <button type="button" data-jump-category="ac">空调 <span>6</span></button>
+          <button type="button" data-jump-category="washer">洗衣机 <span>5</span></button>
+          <button type="button" data-jump-category="heater">热水器 <span>4</span></button>
+          <button type="button" data-jump-category="fridge">冰箱 <span>4</span></button>
+        </div>
+        <p class="coverage-note">内容校对至 2026.10 · 仅提供安全自查建议</p>
+      </div>
+    </div>
+
+    <section class="section categories-section" id="categories">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">按家电查找</p>
+            <h2>你家是哪一件出了状况？</h2>
+          </div>
+          <p class="heading-note">从最常见的现象开始，<br>找到对应的自查方案。</p>
+        </div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <section class="section finder-section" id="finder">
+      <div class="container">
+        <div class="section-heading finder-heading">
+          <div>
+            <p class="eyebrow">故障自查库</p>
+            <h2>先找到你的问题</h2>
+          </div>
+          <p class="heading-note">输入你看到、听到的现象，<br>比搜索故障名称更容易。</p>
+        </div>
+
+        <div class="finder-shell">
+          <div class="finder-toolbar">
+            <div class="finder-search">
+              <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+              <label class="sr-only" for="finderQuery">在故障库中搜索</label>
+              <input id="finderQuery" type="search" placeholder="例如：不制冷、不排水、噪音大、漏水……" autocomplete="off">
+              <button class="finder-clear" id="finderClear" type="button" aria-label="清空搜索" hidden>
+                <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+              </button>
+              <kbd>/</kbd>
+            </div>
+            <div class="filter-tabs" id="filterTabs" role="group" aria-label="按家电筛选"></div>
+          </div>
+
+          <div class="finder-meta">
+            <p id="resultCount" aria-live="polite">共 19 个排查方案</p>
+            <p class="finder-hint"><span class="hint-line"></span>点击卡片，查看完整步骤</p>
+          </div>
+
+          <div class="issue-grid" id="issueGrid"></div>
+
+          <div class="empty-state" id="emptyState" hidden>
+            <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></span>
+            <h3>暂时没找到相关问题</h3>
+            <p id="emptyText">换个说法试试，比如只输入“不制冷”或“噪音”。</p>
+            <div class="empty-actions">
+              <button class="btn-secondary" type="button" id="clearFilters">清空筛选</button>
+              <a class="text-link" href="#safety">查看安全红线 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="safety-section" id="safety">
+      <div class="safety-glow" aria-hidden="true"></div>
+      <div class="container safety-grid">
+        <div class="safety-intro">
+          <p class="eyebrow eyebrow-light">Safety first</p>
+          <h2>出现这些情况，<br><span>请立即停手。</span></h2>
+          <p class="safety-lede">以下不属于“小故障”。不要继续排查，也不要自行拆机，先把人和家保护好。</p>
+
+          <div class="gas-alert">
+            <span class="gas-alert-icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg></span>
+            <div>
+              <b>闻到燃气味？</b>
+              <p>关燃气阀、开窗通风，不开关任何电器，到室外再打电话。</p>
+            </div>
+          </div>
+
+          <div class="safety-rules">
+            <span>不拆外壳</span>
+            <span>不带电检测</span>
+            <span>不碰燃气与制冷剂</span>
+          </div>
+        </div>
+
+        <div class="safety-list">
+          <article class="safety-item">
+            <span class="safety-num">01</span>
+            <div>
+              <h3>焦糊味、冒烟、外壳异常发烫</h3>
+              <p>立即断开电源，停止使用。不要再次通电测试，不要用水扑救带电设备。</p>
+            </div>
+            <span class="safety-action">立即断电</span>
+          </article>
+          <article class="safety-item">
+            <span class="safety-num">02</span>
+            <div>
+              <h3>插头发黑、反复跳闸、有麻手感</h3>
+              <p>说明供电或线路可能异常。停止使用该插座，联系专业电工或品牌售后。</p>
+            </div>
+            <span class="safety-action">停止使用</span>
+          </article>
+          <article class="safety-item">
+            <span class="safety-num">03</span>
+            <div>
+              <h3>闻到燃气味，或燃气热水器反复打不着火</h3>
+              <p>不要反复点火，不要开关灯和排气扇。关阀、开窗，到室外联系燃气公司；起火请拨 119。</p>
+            </div>
+            <span class="safety-action">关阀通风</span>
+          </article>
+          <article class="safety-item">
+            <span class="safety-num">04</span>
+            <div>
+              <h3>漏水已经浸到插座或电器底部</h3>
+              <p>不要湿手触碰。在确保自身安全的前提下断开总电源，再处理积水并报修。</p>
+            </div>
+            <span class="safety-action">先断电</span>
+          </article>
+          <article class="safety-item">
+            <span class="safety-num">05</span>
+            <div>
+              <h3>热水器机身或内胆漏水</h3>
+              <p>停止使用，关闭电源、进水阀和燃气阀，联系专业人员。不要自行拆机或带电检查。</p>
+            </div>
+            <span class="safety-action">停用报修</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section method-section" id="method">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">怎么判断</p>
+            <h2>自查三步，最多做到这里</h2>
+          </div>
+          <p class="heading-note">把复杂维修留给专业的人。<br>你只需要确认三件事。</p>
+        </div>
+
+        <div class="method-grid">
+          <article class="method-card">
+            <div class="method-top"><span class="method-num">01</span><span class="method-tag">设置</span></div>
+            <h3>先查设置</h3>
+            <p>模式、温度、定时、门是否关严、插头是否松动。很多“故障”，其实只是一个设置没对上。</p>
+            <div class="method-tags"><span>运行模式</span><span>温度</span><span>电源</span></div>
+          </article>
+          <article class="method-card">
+            <div class="method-top"><span class="method-num">02</span><span class="method-tag">清洁</span></div>
+            <h3>再查清洁</h3>
+            <p>过滤网、门封条、可见的排水口、进水滤网。只做说明书允许用户清洁的部分。</p>
+            <div class="method-tags"><span>过滤网</span><span>门封条</span><span>排水口</span></div>
+          </article>
+          <article class="method-card">
+            <div class="method-top"><span class="method-num">03</span><span class="method-tag">环境</span></div>
+            <h3>最后看环境</h3>
+            <p>外机是否被遮挡、地面是否平稳、水压是否正常、是否同时使用了大功率电器。</p>
+            <div class="method-tags"><span>散热空间</span><span>水压</span><span>摆放</span></div>
+          </article>
+        </div>
+
+        <div class="boundary-card">
+          <div class="boundary-heading">
+            <span class="boundary-eyebrow">一条简单的分界线</span>
+            <p>能靠<strong>设置、清洁和摆放</strong>解决的，叫自查；<br>需要<strong>拆外壳、碰燃气、测电路</strong>的，叫维修。</p>
+          </div>
+          <div class="boundary-columns">
+            <div class="boundary-col boundary-do">
+              <h3><span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>可以自己试</h3>
+              <ul>
+                <li>对照说明书检查模式和温度</li>
+                <li>清洗可拆卸的过滤网、门封条</li>
+                <li>整理排水管、调整家电摆放位置</li>
+                <li>确认水阀、燃气阀和电源是否正常</li>
+              </ul>
+            </div>
+            <div class="boundary-col boundary-dont">
+              <h3><span><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></span>不要自己碰</h3>
+              <ul>
+                <li>打开机壳、拆卸内部零件</li>
+                <li>带电检测电压、短接保护开关</li>
+                <li>自行加制冷剂、处理燃气部件</li>
+                <li>用刀具铲冰箱冰层或强行通排水管</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section myths-section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">少花冤枉钱</p>
+            <h2>四个常见的误判</h2>
+          </div>
+          <p class="heading-note">别让一句“应该是坏了”，<br>变成一次不必要的上门费。</p>
+        </div>
+
+        <div class="myth-grid">
+          <article class="myth-card">
+            <span class="myth-label">误区 01</span>
+            <p class="myth-claim">空调不制冷，就是缺氟。</p>
+            <div class="myth-answer">
+              <span>先这样看</span>
+              <p>先查模式、温度和过滤网。缺氟往往伴随铜管结霜或接口油迹，是否需要加氟必须由师傅检测。</p>
+            </div>
+          </article>
+          <article class="myth-card">
+            <span class="myth-label">误区 02</span>
+            <p class="myth-claim">洗衣机不脱水，肯定是电机坏了。</p>
+            <div class="myth-answer">
+              <span>先这样看</span>
+              <p>先看衣物是否偏堆、机门是否锁好、排水是否完成。多数不脱水来自负载不平衡和排水问题。</p>
+            </div>
+          </article>
+          <article class="myth-card">
+            <span class="myth-label">误区 03</span>
+            <p class="myth-claim">热水器忽冷忽热，只能换新。</p>
+            <div class="myth-answer">
+              <span>先这样看</span>
+              <p>先确认是否混入冷水、水压是否波动、花洒是否结垢。燃气机型还要观察火焰是否稳定。</p>
+            </div>
+          </article>
+          <article class="myth-card">
+            <span class="myth-label">误区 04</span>
+            <p class="myth-claim">冰箱结霜厚，拿刀铲掉就好。</p>
+            <div class="myth-answer">
+              <span>先这样看</span>
+              <p>不要用刀铲，容易戳破内胆。先查门封和密封，再按说明书断电除霜，别让化水流进电路。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="about-shell">
+          <div class="about-copy">
+            <p class="eyebrow">关于宅小安</p>
+            <h2>把“该不该叫师傅”，<br>提前说明白。</h2>
+            <p>家电出问题时，最让人犹豫的不是维修本身，而是不知道问题大不大、该不该花钱。宅小安把常见的小故障整理成简单、可执行的自查步骤，并明确标出安全边界。</p>
+            <p>我们不教你拆机，也不替代专业维修。只希望你在打电话之前，心里更有数。</p>
+            <div class="about-principles">
+              <span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>不拆机</span>
+              <span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>不通电检测</span>
+              <span><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>不夸大故障</span>
+            </div>
+          </div>
+          <div class="about-stats">
+            <div class="about-stat"><strong>19</strong><span>条高频故障自查</span></div>
+            <div class="about-stat"><strong>4</strong><span>类常用家用电器</span></div>
+            <div class="about-stat"><strong>0</strong><span>条拆机操作建议</span></div>
+            <div class="about-quote">
+              <svg class="icon" aria-hidden="true"><use href="#i-spark"></use></svg>
+              <p>先排除小问题，<br>再为专业判断付费。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="disclaimer">
+          <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+          <p><strong>安全说明：</strong>本站内容根据常见家电使用场景和公开资料整理，仅用于日常安全自查参考，不替代品牌售后、持证维修人员或燃气/电力专业人员的现场判断。涉及燃气、漏电、焦糊味、内胆漏水和任何拆机操作，请立即停止并联系专业人员。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <a class="brand brand-footer" href="#top" aria-label="宅小安首页">
+          <span class="brand-mark">
+            <svg viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M8 19.5 20 10l12 9.5V31a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"></path>
+              <path d="m15 22.5 3.8 3.8L26 17.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+          <span class="brand-text"><strong>宅小安</strong><small>居家家电简易排查助手</small></span>
+        </a>
+        <p>家电有点小毛病，先查一查，再决定。</p>
+      </div>
+      <nav class="footer-nav" aria-label="页脚导航">
+        <a href="#finder">故障自查</a>
+        <a href="#safety">安全红线</a>
+        <a href="#method">怎么判断</a>
+        <a href="#about">关于我们</a>
+      </nav>
+      <div class="footer-safety">
+        <span>紧急提醒</span>
+        <p>燃气泄漏请到室外联系燃气公司；起火或有人受伤，请立即拨打 119 / 120。</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> 宅小安 · 仅作日常安全自查参考</p>
+      <p>不拆机 · 不通电检测 · 不碰燃气与制冷剂</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="issueModal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭排查详情">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="noscript">请开启浏览器的 JavaScript，以使用故障搜索和自查步骤功能。</div>
+  </noscript>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
