@@ -473,6 +473,7 @@
   }
 
   function unlockBodyScroll() {
+    if (document.body.classList.contains("account-open")) return;
     document.body.classList.remove("modal-open");
     document.body.style.paddingRight = "";
   }
@@ -509,6 +510,8 @@
     window.requestAnimationFrame(() => {
       modalDialog.focus({ preventScroll: true });
     });
+
+    document.dispatchEvent(new CustomEvent("zxa:issue-open", { detail: { issueId: id } }));
   }
 
   function closeIssue() {
@@ -690,7 +693,7 @@
   /* ---------- Keyboard shortcuts ---------- */
 
   document.addEventListener("keydown", (event) => {
-    if (!modal.hidden) return;
+    if (!modal.hidden || document.body.classList.contains("account-open")) return;
 
     if (event.key === "Escape" && !mobileMenu.hidden) {
       setMobileMenu(false);
@@ -730,7 +733,7 @@
     if (reduceMotion || !("IntersectionObserver" in window)) return;
 
     const elements = $$(
-      ".section-heading, .cat-card, .method-card, .myth-card, .boundary-card, .safety-intro, .safety-list, .about-shell, .disclaimer"
+      ".section-heading, .cat-card, .ai-shell, .method-card, .myth-card, .boundary-card, .safety-intro, .safety-list, .about-shell, .disclaimer"
     );
 
     elements.forEach((element, index) => {
@@ -763,9 +766,21 @@
 
   $("#year").textContent = String(new Date().getFullYear());
 
+  window.ZXA = Object.assign(window.ZXA || {}, {
+    openIssue,
+    closeIssue,
+    showToast,
+    escapeHtml,
+    data,
+    getIssue: (id) => issueMap.get(id),
+    getCategory: (id) => categoryMap.get(id)
+  });
+
   renderCategories();
   renderFilterTabs();
   renderIssues();
   initReveal();
   initFromHash();
+
+  document.dispatchEvent(new CustomEvent("zxa:app-ready"));
 })();

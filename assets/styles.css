@@ -2446,13 +2446,20 @@ section[id] {
   padding-top: 7px;
 }
 
-.footer-nav a {
+.footer-nav a,
+.footer-nav button {
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: rgba(240, 236, 226, 0.7);
   font-size: 11.5px;
+  text-align: left;
+  cursor: pointer;
   transition: color 0.2s ease;
 }
 
-.footer-nav a:hover {
+.footer-nav a:hover,
+.footer-nav button:hover {
   color: #fff;
 }
 

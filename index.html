@@ -4,15 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>宅小安 · 居家家电简易排查助手</title>
-  <meta name="description" content="空调、洗衣机、热水器、冰箱常见小故障自助排查。用简单的步骤判断问题，明确什么时候可以自己处理、什么时候必须找专业维修。">
+  <meta name="description" content="AI 辅助的居家家电故障自查网站。覆盖空调、洗衣机、热水器、冰箱 19 个高频故障，支持住户与维修顾问演示账号、自查记录和报修边界提示。">
   <meta name="theme-color" content="#f5f2ea">
   <meta name="color-scheme" content="light">
   <meta property="og:type" content="website">
   <meta property="og:title" content="宅小安 · 居家家电简易排查助手">
-  <meta property="og:description" content="家电有点小毛病，先别急着叫师傅。19 个高频故障自查方案，不拆机、不通电检测，并明确标注报修边界。">
+  <meta property="og:description" content="家电有点小毛病，先别急着叫师傅。AI 症状分析 + 19 个高频故障自查方案，不拆机、不通电检测，并明确标注报修边界。">
   <meta property="og:image" content="preview.png">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23155345'/%3E%3Cpath d='M15 30 32 17l17 13v16a4 4 0 0 1-4 4H19a4 4 0 0 1-4-4Z' fill='none' stroke='%23f8f4e9' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='m24 34 6 6 11-13' fill='none' stroke='%23e9a071' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/features.css">
 </head>
 <body>
   <a class="skip-link" href="#finder">跳到故障自查</a>
@@ -81,6 +82,22 @@
     <symbol id="i-chevron" viewBox="0 0 24 24">
       <path d="m7 10 5 5 5-5"></path>
     </symbol>
+    <symbol id="i-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8.2" r="3.7"></circle>
+      <path d="M4.8 20c.6-4 3.3-6.1 7.2-6.1s6.6 2.1 7.2 6.1"></path>
+    </symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24">
+      <path d="M14 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"></path>
+      <path d="M10 8l-4 4 4 4M6 12h10"></path>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="m3.5 11.2 16.8-7.1-6.9 16.5-2.2-6.8-7.7-2.6Z"></path>
+      <path d="m11.2 13.8 4.4-4.4"></path>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+      <path d="M20 11a8 8 0 1 0-2.1 6.1"></path>
+      <path d="M20 4v7h-7"></path>
+    </symbol>
   </svg>
 
   <header class="site-header" id="siteHeader">
@@ -100,12 +117,17 @@
 
       <nav class="main-nav" aria-label="主导航">
         <a href="#finder">故障自查</a>
+        <a href="#ai">AI 自查</a>
         <a href="#safety">安全红线</a>
         <a href="#method">怎么判断</a>
         <a href="#about">关于我们</a>
       </nav>
 
       <div class="header-actions">
+        <button class="account-entry" id="accountEntry" type="button" data-open-account aria-haspopup="dialog">
+          <span class="account-entry-avatar" aria-hidden="true"><svg class="icon"><use href="#i-user"></use></svg></span>
+          <span class="account-entry-label" id="accountLabel">登录 / 注册</span>
+        </button>
         <a class="header-cta" href="#finder">
           开始排查
           <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
@@ -120,9 +142,14 @@
     <nav class="mobile-menu" id="mobileMenu" aria-label="移动端导航" hidden>
       <div class="container mobile-menu-inner">
         <a href="#finder">故障自查<span>19 个自查方案</span></a>
+        <a href="#ai">AI 智能自查<span>自然语言症状分析</span></a>
         <a href="#safety">安全红线<span>先停手，再处理</span></a>
         <a href="#method">怎么判断<span>自查三步与边界</span></a>
         <a href="#about">关于我们<span>我们做什么，不做什么</span></a>
+        <button class="mobile-account-link" type="button" data-open-account>
+          <span>个人中心</span>
+          <span id="mobileAccountHint">登录 / 注册</span>
+        </button>
       </div>
     </nav>
   </header>
@@ -240,6 +267,69 @@
           <p class="heading-note">从最常见的现象开始，<br>找到对应的自查方案。</p>
         </div>
         <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <section class="ai-section" id="ai">
+      <div class="container">
+        <div class="section-heading ai-heading">
+          <div>
+            <p class="eyebrow">AI 智能自查</p>
+            <h2>说不清楚哪里坏了？<br>让它先问两句。</h2>
+          </div>
+          <p class="heading-note">用日常语言描述现象，<br>AI 会结合 19 条故障库给出排查排序。</p>
+        </div>
+
+        <div class="ai-shell">
+          <div class="ai-intro">
+            <span class="ai-badge"><svg class="icon" aria-hidden="true"><use href="#i-spark"></use></svg>AI 症状分析 · 本地运行</span>
+            <h3>你只管描述，<br>剩下的交给小安。</h3>
+            <p>不需要知道“压缩机”或“排水阀”叫什么。说清楚你看到、听到、摸到的现象，智能助手会给出最接近的 3 个排查方向。</p>
+
+            <div class="ai-feature-list">
+              <div class="ai-feature">
+                <span>01</span>
+                <div><b>听懂日常描述</b><p>“空调开半天不凉，外机好像也没转”</p></div>
+              </div>
+              <div class="ai-feature">
+                <span>02</span>
+                <div><b>给出可能性排序</b><p>匹配度从高到低，不让你在列表里迷路</p></div>
+              </div>
+              <div class="ai-feature">
+                <span>03</span>
+                <div><b>先识别安全风险</b><p>闻到燃气味、焦糊味时，先停手再排查</p></div>
+              </div>
+            </div>
+
+            <p class="ai-privacy"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>描述只在当前浏览器里分析，不会上传。</p>
+          </div>
+
+          <div class="ai-chat" aria-label="AI 智能自查对话">
+            <div class="ai-chat-head">
+              <div class="ai-agent">
+                <span class="ai-avatar"><svg class="icon" aria-hidden="true"><use href="#i-spark"></use></svg></span>
+                <div><b>小安 · AI 自查助手</b><small><span class="live-dot"></span>在线 · 本地智能分析</small></div>
+              </div>
+              <button class="ai-reset" id="aiReset" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>重置
+              </button>
+            </div>
+
+            <div class="ai-messages" id="aiMessages" role="log" aria-live="polite" aria-label="自查对话记录"></div>
+
+            <div class="ai-composer">
+              <div class="ai-chips" id="aiChips"></div>
+              <form class="ai-input-row" id="aiForm">
+                <label class="sr-only" for="aiInput">描述家电问题</label>
+                <input id="aiInput" type="text" placeholder="先选一个家电，或直接描述现象…" autocomplete="off" maxlength="120">
+                <button type="submit" aria-label="发送给 AI 自查助手">
+                  <svg class="icon" aria-hidden="true"><use href="#i-send"></use></svg>
+                </button>
+              </form>
+              <p class="ai-input-note">演示版基于本地知识库与规则推理，不调用外部大模型</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -511,9 +601,11 @@
       </div>
       <nav class="footer-nav" aria-label="页脚导航">
         <a href="#finder">故障自查</a>
+        <a href="#ai">AI 智能自查</a>
         <a href="#safety">安全红线</a>
         <a href="#method">怎么判断</a>
         <a href="#about">关于我们</a>
+        <button type="button" data-open-account>个人中心</button>
       </nav>
       <div class="footer-safety">
         <span>紧急提醒</span>
@@ -536,6 +628,16 @@
     </div>
   </div>
 
+  <div class="modal account-modal" id="accountModal" hidden>
+    <div class="modal-backdrop" data-close-account></div>
+    <div class="modal-dialog account-dialog" role="dialog" aria-modal="true" aria-labelledby="accountDialogTitle" tabindex="-1">
+      <button class="modal-close" type="button" data-close-account aria-label="关闭个人中心">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+      <div id="accountContent"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <noscript>
@@ -544,5 +646,6 @@
 
   <script src="assets/data.js"></script>
   <script src="assets/app.js"></script>
+  <script src="assets/features.js"></script>
 </body>
 </html>
