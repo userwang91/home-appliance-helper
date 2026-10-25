@@ -1,0 +1,14 @@
+宅小安 · 居家家电简易排查助手
+课程作业源码包
+
+线上网站：https://userwang91.github.io/home-appliance-helper/
+GitHub 仓库：https://github.com/userwang91/home-appliance-helper
+Git 最新提交：以 GitHub 仓库 main 分支为准
+打包时间：2026-10-25 09:56
+
+运行方式：
+1. 解压后双击 index.html 即可浏览（无需安装依赖）。
+2. 或在解压目录执行 python -m http.server 8765，然后访问 http://127.0.0.1:8765/。
+3. 演示流程见 DEMO.md。
+
+说明：本网站为纯前端演示项目；账号与自查记录保存在浏览器 localStorage 中，仅用于课程展示。
